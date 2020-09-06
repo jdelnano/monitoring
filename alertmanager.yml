@@ -1,0 +1,21 @@
+global:
+
+# The directory from which notification templates are read.
+templates: 
+- '/etc/alertmanager/template/*.tmpl'
+
+# The root route on which each incoming alert enters.
+route:
+  # If an alert has successfully been sent, wait 'repeat_interval' to
+  # resend them.
+  repeat_interval: 1h 
+
+  # A default receiver
+  receiver: operations-team
+
+receivers:
+- name: 'operations-team'
+  slack_configs:
+    - api_url: # slack webhook goes here
+      channel: # slack channel name goes here
+      send_resolved: true

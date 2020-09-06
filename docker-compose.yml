@@ -1,0 +1,45 @@
+---
+version: '3.8'
+
+services:
+  prom:
+    container_name: prom
+    image: prom/prometheus:v2.20.1
+    restart: always
+    volumes:
+      - ./alert.rules:/etc/prometheus/alert.rules
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus-storage:/prometheus
+    ports:
+      - "9090:9090"
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:7.1.5
+    restart: always
+    volumes:
+      - ./grafana-storage:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prom
+  alertmanager:
+    container_name: alertmanager
+    image: prom/alertmanager:v0.21.0
+    restart: always
+    volumes:
+      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    ports:
+      - "9093:9093"
+    depends_on:
+      - prom
+# commented out since you most likely don't need
+# node_exporter on same server as mini monitoring stack
+# but it can be a useful target for testing out rules and such
+#  node_exporter:
+#    container_name: node_exporter
+#    image: prom/node-exporter:latest
+#    restart: always
+#    ports:
+#      - "9100:9100"
+#    depends_on:
+#      - prom
