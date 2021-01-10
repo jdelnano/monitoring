@@ -27,10 +27,10 @@ scrape_configs:
     static_configs:
     - targets: ['localhost:9090']
 
-  - job_name: 'node_exporter'
+  - job_name: 'blackbox_exporter'
 
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
 
     static_configs:
-    - targets: ['<ip/url/service name running node_exporter>:9100']
+    - targets: ['<ip/url/service name running node_exporter>:9115']

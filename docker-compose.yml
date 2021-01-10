@@ -35,11 +35,11 @@ services:
 # commented out since you most likely don't need
 # node_exporter on same server as mini monitoring stack
 # but it can be a useful target for testing out rules and such
-#  node_exporter:
-#    container_name: node_exporter
-#    image: prom/node-exporter:latest
+#  blackbox_exporter:
+#    container_name: blackbox_exporter
+#    image: prom/blackbox-exporter:v0.18.0
 #    restart: always
 #    ports:
-#      - "9100:9100"
+#      - "9115:9115"
 #    depends_on:
 #      - prom
